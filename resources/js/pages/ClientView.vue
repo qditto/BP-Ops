@@ -11,6 +11,7 @@
                 <div class="card card-default border-primary">
                     <div class="card-header text-white bg-primary">
                         Products
+                        <div class="card-tool float-right"><router-link tag="em" :class="'fas fa-edit text-white'" :to="{path: '/clients/' + this.$route.params.slug + '/products'}"></router-link></div>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -28,7 +29,7 @@
                         Logins
                     </div>
                     <div class="card-body">
-                        <span v-if="client.logins[0]">Test</span>
+                        <span v-if="logins">Test</span>
                     </div>
                 </div>
             </div>
@@ -42,14 +43,18 @@
         data() {
             return {
                 client: '',
-                edit_url : '/clients/' + this.$route.params.slug + '/edit'
+                edit_url : '/clients/' + this.$route.params.slug + '/edit',
+                logins: false
             }
         },
-        mounted() {
+        created() {
             let self = this
             axios.get('api/clients/' + this.$route.params.slug)
                 .then(function (res) {
                     self.client = res.data
+                    if(self.client.logins.length > 0){
+                        self.logins = true
+                    }
                 })
                 .catch()
         }

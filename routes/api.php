@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/clients/{client}', 'API\ClientController@view');
     Route::get('/clients/{client}/edit', 'API\ClientController@edit');
     Route::patch('/clients/{client}', 'API\ClientController@update');
+    Route::get('/clients/{client}/products', 'API\ClientProductController@index');
+    Route::put('/clients/{client}/products', 'API\ClientProductController@attachProduct');
+
     Route::get('/client-products/{clientProduct}', 'API\ClientProductController@edit');
     Route::patch('client-products/{clientProduct}', 'API\ClientProductController@updateCustomFields');
     Route::get('definitions/{definition}/edit', 'API\DefinitionController@edit');

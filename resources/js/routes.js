@@ -16,9 +16,10 @@ import store from './store'
 import Home from './pages/Home'
 import ClientForm from './pages/ClientForm'
 import ClientTable from "./pages/ClientTable";
-import EditClientProduct from "./pages/EditClientProduct";
+import EditClientProductCFs from "./pages/EditClientProductCFs";
 import DefinitionForm from "./pages/DefinitionForm";
 import ClientView from "./pages/ClientView";
+import EditClientProducts from "./pages/EditClientProducts";
 /*
     Extends Vue to use Vue Router
 */
@@ -122,8 +123,12 @@ export default new VueRouter({
                     component: ClientView
                 },
                 {
+                    path: 'clients/:slug/products',
+                    component: EditClientProducts
+                },
+                {
                     path: '/client-products/:slug',
-                    component: EditClientProduct
+                    component: EditClientProductCFs
                 },
                 {
                     path: 'clients/:slug/edit',

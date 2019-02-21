@@ -19,3 +19,4 @@ Route::get('/login', 'Web\AppController@getLogin' )
 Route::get('login/google', 'Web\AuthenticationController@getSocialRedirect')->middleware('guest');
 Route::get( '/callback/google', 'Web\AuthenticationController@getSocialCallback' )
     ->middleware('guest');
+Route::get('test/{client}', 'API\ClientProductController@index');
