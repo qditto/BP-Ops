@@ -29,9 +29,6 @@ class CreateClientsTable extends Migration
             $table->json('business_hours')->nullable();
             $table->json('geo_targeting')->nullable();
             $table->json('competitors')->nullable();
-            $table->string('cms_user_name')->nullable();
-            $table->string('cms_password')->nullable();
-            $table->string('cms_login_url')->nullable();
             $table->string('contact_method')->nullable();
             $table->string('ga_ua_code')->nullable();
             $table->text('notes')->nullable();

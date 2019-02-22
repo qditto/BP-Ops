@@ -24,12 +24,20 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Url</th>
+                            <th>GTM Access</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="td in tableData">
                             <td>{{td.name}}</td>
+                            <td>{{td.email}}</td>
+                            <td>{{td.phone}}</td>
+                            <td>{{td.current_url}}</td>
+                            <td><span class="circle bg-success" v-if="td.google_tag_manager_access !== 0"></span><span class="circle bg-danger" v-else></span></td>
                             <td>
                                 <router-link tag="button" :to="{path: 'clients/' + td.id}" :class="'btn mr-1 mb-1 btn-success'">View</router-link>
                             </td>
@@ -82,9 +90,17 @@
         updated: function () {
             $('.table').DataTable({
                 'paging': true, // Table pagination
-                'ordering': true, // Column ordering
                 'info': true, // Bottom left status text
                 responsive: true,
+                "columns": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    { "orderable": false },
+                    { "orderable": false },
+                ],
+
                 // Text translation options
                 // Note the required keywords between underscores (e.g _MENU_)
                 oLanguage: {

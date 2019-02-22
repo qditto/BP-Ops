@@ -141,7 +141,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        $data = Client::all(['id', 'name']);
+        $data = Client::all(['id', 'name', 'current_url', 'email', 'phone', 'google_tag_manager_access']);
         return response()->json($data, 200);
     }
 

@@ -9,18 +9,6 @@ class Client extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $casts = ['keywords' => 'array', 'competitors' => 'array', 'geo_targeting' => 'array', 'business_hours' => 'array'];
 
-    public function getCmsPasswordAttribute($value)
-    {
-        if (!empty($value)) {
-            return decrypt($value);
-        }
-        return $value;
-    }
-
-    public function setCmsPasswordAttribute($value)
-    {
-        $this->attributes['cms_password'] = encrypt($value);
-    }
 
     public function user()
     {

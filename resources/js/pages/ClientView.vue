@@ -60,6 +60,9 @@
                                 </b-tab>
                             </b-tabs>
                         </div>
+                        <div class="text-center" v-else>
+                            <h2>No Logins Added For Client</h2>
+                        </div>
                     </div>
                 </div>
             </div>
