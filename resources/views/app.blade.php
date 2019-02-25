@@ -16,6 +16,11 @@
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
+
+    </script>
+    <script>
+        window.apiId = "<?php echo config('scout.algolia.id'); ?>";
+        window.apiKey = "<?php echo env('ALGOLIA_SEARCH'); ?>";
     </script>
 </head>
 <body>

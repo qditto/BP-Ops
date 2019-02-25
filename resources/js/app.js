@@ -34,6 +34,7 @@ window.Form = Form;
 import Vue from 'vue';
 import router from './routes.js'
 import store from './store.js'
+import InstantSearch from 'vue-instantsearch'
 // Modernizr
 //import 'modernizr'
 // Bootstrap Vue
@@ -58,6 +59,7 @@ import VueI18Next from '@panter/vue-i18next';
 window.axios = require('axios');
 Vue.use(BootstrapVue);
 Vue.use(VueI18Next);
+Vue.use(InstantSearch)
 Vue.filter('capitalize', function (value) {
     if (!value) return ''
     value = value.toString()

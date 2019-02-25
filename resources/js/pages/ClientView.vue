@@ -81,15 +81,25 @@
             }
         },
         created() {
-            let self = this
-            axios.get('api/clients/' + this.$route.params.slug)
-                .then(function (res) {
-                    self.client = res.data
-                    if (self.client.logins.length > 0) {
-                        self.logins = true
-                    }
-                })
-                .catch()
+           this.loadClient()
+        },
+        methods:{
+            loadClient(){
+                let self = this
+                axios.get('api/clients/' + this.$route.params.slug)
+                    .then(function (res) {
+                        self.client = res.data
+                        if (self.client.logins.length > 0) {
+                            self.logins = true
+                        }
+                    })
+                    .catch()
+            }
+        },
+        watch:{
+            '$route.params.slug':function () {
+              this.loadClient();
+            }
         }
     }
 </script>

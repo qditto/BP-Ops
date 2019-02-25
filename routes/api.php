@@ -42,4 +42,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('permissions', 'API\PermissionController@store');
     Route::patch('permissions/{permission}', 'API\PermissionController@update');
     Route::delete('permissions/{permission}', 'API\PermissionController@delete');
+    Route::get('search', 'API\SearchController@search');
 });
