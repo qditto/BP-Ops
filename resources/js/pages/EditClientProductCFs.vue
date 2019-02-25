@@ -1,5 +1,12 @@
 <template>
     <ContentWrapper>
+        <div class="content-heading">
+            <div>
+            {{category}}
+
+            <span class="text-sm d-none d-sm-block" >{{client}}</span>
+            </div>
+        </div>
         <form @submit.prevent="onSubmit">
             <div v-for="(fields, field_group) in field_groups">
                 <div class="card card-default">
@@ -37,32 +44,42 @@
 </template>
 
 <script>
+    import swal from 'sweetalert2'
     export default {
         name: "EditClientProduct",
         data() {
             return {
                 field_groups: '',
+                client: '',
+                category: ''
             }
         },
         created() {
             let self = this
             axios.get('api/client-products/' + this.$route.params.slug)
                 .then(function (res) {
-                    for (let i in res.data) {
-                        for (let key in res.data[i]) {
-                            if (res.data[i][key].type === 'json' && !res.data[i][key].value) {
-                                res.data[i][key].value = [''];
+                    for (let i in res.data.fields) {
+                        for (let key in res.data.fields[i]) {
+                            if (res.data.fields[i][key].type === 'json' && !res.data.fields[i][key].value) {
+                                res.data.fields[i][key].value = [''];
                             }
                         }
                     }
-                    self.field_groups = res.data
+                    self.field_groups = res.data.fields
+                    self.client = res.data.client
+                    self.category = res.data.category
                 })
         },
         methods: {
             onSubmit: function () {
                 let self = this
                 axios.patch('api/client-products/' + self.$route.params.slug, self.field_groups)
-                    .then()
+                    .then(function () {
+                        swal({
+                            title: 'Success!',
+                            type: 'success'
+                        })
+                    })
                     .catch()
             }
         }

@@ -24,6 +24,7 @@ import UsersIndex from "./pages/UsersIndex";
 import EditUser from "./pages/EditUser";
 import RolesIndex from "./pages/RolesIndex";
 import PermissionsIndex from "./pages/PermissionsIndex";
+import DefinitionIndex from "./pages/DefinitionIndex";
 /*
     Extends Vue to use Vue Router
 */
@@ -96,7 +97,7 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
-            redirect: '/home',
+            redirect: '/clients',
             beforeEnter: requireAuth,
 
         },
@@ -118,9 +119,6 @@ export default new VueRouter({
                 path: '/clients',
                 component: ClientTable,
                 beforeEnter: requireAuth,
-                meta: {
-                    can: 'view clients'
-                }
             },
                 {
                     path: "clients/:slug",
@@ -139,8 +137,12 @@ export default new VueRouter({
                     component: ClientForm
                 },
                 {
-                    path: 'definitions',
+                    path: 'definitions/create',
                     component: DefinitionForm
+                },
+                {
+                    path: 'definitions',
+                    component: DefinitionIndex
                 },
                 {
                     path: 'definitions/:slug',

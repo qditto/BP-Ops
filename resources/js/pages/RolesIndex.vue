@@ -14,11 +14,11 @@
                     </thead>
                     <tbody>
                     <tr v-for="(role, roleIndex) in roles">
-                        <th>{{role.name | capitalize}}</th>
-                        <th>
+                        <td>{{role.name | capitalize}}</td>
+                        <td>
                             <button @click="showModal(roleIndex)" class="btn btn-success">Edit</button>
                             <button @click="deleteRole(role.id)" class="btn btn-danger">Delete</button>
-                        </th>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

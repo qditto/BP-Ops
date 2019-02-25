@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Definition;
+use App\FieldGroup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,8 @@ class DefinitionController extends Controller
      */
     public function index()
     {
-        //
+        $fieldGroups = Definition::with(['field_group', 'product_categories'])->get();
+        return response()->json($fieldGroups, 200);
     }
 
     /**

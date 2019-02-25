@@ -19,10 +19,11 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <ul>
-                            <li v-for="client_products in client.client_products">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center" v-for="client_products in client.client_products">
                                 {{client_products.product.product_category.name}} -
                                 {{client_products.product.name}}
+                                <router-link tag="em" class="fas fa-edit" :to="{path: '/client-products/' + client_products.id}"></router-link>
                             </li>
                         </ul>
                     </div>

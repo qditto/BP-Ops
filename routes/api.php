@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/clients', 'API\ClientController@index');
     Route::get('clients/create', 'API\ClientController@create');
     Route::get('field-groups', 'API\FieldGroupController@index');
+    Route::post('field-groups', 'API\FieldGroupController@store');
+
     Route::get('product-categories', 'API\ProductCategoryController@index');
     Route::get('/clients/{client}', 'API\ClientController@view');
     Route::get('/clients/{client}/edit', 'API\ClientController@edit');
@@ -29,6 +31,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/client-products/{clientProduct}', 'API\ClientProductController@edit');
     Route::patch('client-products/{clientProduct}', 'API\ClientProductController@updateCustomFields');
     Route::get('definitions/{definition}/edit', 'API\DefinitionController@edit');
+    Route::get('definitions', 'API\DefinitionController@index');
+
     Route::patch('definitions/{definition}', 'API\DefinitionController@update');
     Route::get('users', 'API\UserController@index');
     Route::get('users/{user}', 'API\UserController@edit');

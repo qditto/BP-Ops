@@ -14,11 +14,11 @@
                     </thead>
                     <tbody>
                     <tr v-for="(permission, permissionIndex) in permissions">
-                        <th>{{permission.name | capitalize}}</th>
-                        <th>
+                        <td>{{permission.name | capitalize}}</td>
+                        <td>
                             <button @click="showModal(permissionIndex)" class="btn btn-success">Edit</button>
                             <button @click="deletePermission(permission.id)" class="btn btn-danger">Delete</button>
-                        </th>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

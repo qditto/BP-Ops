@@ -22,7 +22,10 @@ class ClientProductController extends Controller
     {
 
         $formattedData = $clientProduct->getCustomFields();
-        return response()->json($formattedData,200);
+        $client = $clientProduct->client()->get()->pluck('name')->first();
+        $category = $clientProduct->product()->first()->product_category()->get()->pluck('name')->first();
+        $data = ['fields' => $formattedData, 'client'=> $client, 'category' => $category];
+        return response()->json($data,200);
     }
 
     public function attachProduct(Client $client, Request $request)

@@ -36,8 +36,12 @@ class ClientProduct extends Model
                     $custom_field = $cf;
                 }
             }
-            if($definition->field_type == 'json' && $custom_field->value){
-                $custom_field->value = json_decode($custom_field->value, true);
+            if($definition->field_type == 'json'){
+                if($custom_field) {
+                    if($custom_field->value) {
+                        $custom_field->value = json_decode($custom_field->value, true);
+                    }
+                }
             }
             $arr =  [
                 'type' => $definition->field_type,

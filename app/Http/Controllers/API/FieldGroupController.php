@@ -36,7 +36,8 @@ class FieldGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        FieldGroup::create(['name' => $request->input('name')]);
+        return response()->json('', 200);
     }
 
     /**

@@ -24,6 +24,13 @@
                     <router-link tag="li" exact-active-class="active" :to="{path: '/permissions'}">
                         <a :title="'View Permissions'"><span>View Permissions</span></a>
                     </router-link>
+                    <li class="nav-heading">Custom Fields</li>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/definitions'}">
+                        <a :title="'View Definitions'"><span>View Definitions</span></a>
+                    </router-link>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/definitions/create'}">
+                        <a :title="'New Definition'"><span>New Definition</span></a>
+                    </router-link>
                 </ul>
             </nav>
         </div>
@@ -35,8 +42,8 @@
 
     export default {
         name: "SideNav",
-        data(){
-            return{
+        data() {
+            return {
                 can: store.getters.getUserCan
             }
         }
