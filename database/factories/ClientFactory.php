@@ -14,6 +14,7 @@ $factory->define(App\Client::class, function (Faker $faker) {
 
     return [
         'name' => $faker->name,
+        'team_id' => \App\Team::all()->random()->id,
         'current_url' => $faker->url,
         'objectives' => $faker->paragraph,
         'email' => $faker->email,

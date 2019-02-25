@@ -64,7 +64,12 @@
                         self.currentProducts = res.data.client_products
                         self.allProducts = res.data.products
                     })
-                    .catch()
+                    .catch(function (res) {
+                        swal({
+                            title: 'Error!',
+                            tpye: 'error'
+                        });
+                    })
             },
             attachProduct(){
                 let self = this
@@ -79,7 +84,12 @@
                         })
                         self.getClientProducts()
                     })
-                    .catch()
+                    .catch(function (res) {
+                        swal({
+                            title: 'Error!',
+                            tpye: 'error'
+                        });
+                    })
             }
         },
         mounted(){

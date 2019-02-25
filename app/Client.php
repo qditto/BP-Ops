@@ -31,5 +31,10 @@ class Client extends Model
         return $this->hasMany('App\ClientLogin');
     }
 
+    public function team()
+    {
+        return $this->belongsTo('App\Team');
+    }
+
 
 }

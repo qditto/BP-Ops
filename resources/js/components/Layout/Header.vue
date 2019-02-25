@@ -51,61 +51,17 @@
                     </b-dropdown-item>
                 </b-nav-item-dropdown>
                     <!-- START Alert menu-->
+<!--
                     <b-nav-item-dropdown class="dropdown-list" no-caret menuClass="animated flipInX" right>
                         <template slot="button-content">
                             <em class="icon-bell"></em>
-                            <span class="badge badge-danger">11</span>
                         </template>
                         <b-dropdown-item>
-                            <!-- START list group-->
-                            <div class="list-group">
-                                <!-- list item-->
-                                <div class="list-group-item list-group-item-action">
-                                    <div class="media">
-                                        <div class="align-self-start mr-2">
-                                            <em class="fab fa-twitter fa-2x text-info"></em>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="m-0">New followers</p>
-                                            <p class="m-0 text-muted text-sm">1 new follower</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- list item-->
-                                <div class="list-group-item list-group-item-action">
-                                    <div class="media">
-                                        <div class="align-self-start mr-2">
-                                            <em class="fas fa-envelope fa-2x text-warning"></em>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="m-0">New e-mails</p>
-                                            <p class="m-0 text-muted text-sm">You have 10 new emails</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- list item-->
-                                <div class="list-group-item list-group-item-action">
-                                    <div class="media">
-                                        <div class="align-self-start mr-2">
-                                            <em class="fas fa-tasks fa-2x text-success"></em>
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="m-0">Pending Tasks</p>
-                                            <p class="m-0 text-muted text-sm">11 pending task</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- last list item-->
-                                <div class="list-group-item list-group-item-action">
-                                <span class="d-flex align-items-center">
-                                    <span class="text-sm">More notifications</span>
-                                    <span class="badge badge-danger ml-auto">14</span>
-                                </span>
-                                </div>
-                            </div>
-                            <!-- END list group-->
+                            &lt;!&ndash; START list group&ndash;&gt;
+                            &lt;!&ndash; END list group&ndash;&gt;
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
+-->
                     <!-- END Alert menu-->
 
             </ul>

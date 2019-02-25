@@ -11,6 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        factory(App\Team::class, 4)->create();
+        factory(App\User::class, 50)->create()->each(function ($user){
+            $baseRoles = ['admin', 'manager', 'user', 'restricted'];
+            $jobRoles = ['traffic coordinator', 'designer', 'adwords', 'seo', 'developer'];
+            $user->assignRole(\Illuminate\Support\Arr::random($baseRoles));
+            $user->assignRole(\Illuminate\Support\Arr::random($jobRoles));
+
+        });
         factory(App\Client::class, 100)->create();
         factory(App\FieldGroup::class, 20)->create();
         factory(App\Definition::class, 200)->create()->each(function ($def){

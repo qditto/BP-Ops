@@ -86,37 +86,37 @@ class CreatePermissionTables extends Migration
         });
 
 
-        Permission::create(['name' => 'view clients']);
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'view products']);
-        Permission::create(['name' => 'view billing']);
-        Permission::create(['name' => 'view definitions']);
-        Permission::create(['name' => 'view product categories']);
-        Permission::create(['name' => 'view field groups']);
-        Permission::create(['name' => 'view client products']);
+        Permission::create(['name' => 'view clients', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view users', 'guard_name' => 'api' ]);
+        Permission::create(['name' => 'view products', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view billing', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view definitions', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view product categories', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view field groups', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view client products', 'guard_name' => 'api']);
 
-        Permission::create(['name' => 'edit clients']);
-        Permission::create(['name' => 'edit users']);
-        Permission::create(['name' => 'edit products']);
-        Permission::create(['name' => 'edit billing']);
-        Permission::create(['name' => 'edit definitions']);
-        Permission::create(['name' => 'edit product categories']);
-        Permission::create(['name' => 'edit field groups']);
-        Permission::create(['name' => 'edit client products']);
+        Permission::create(['name' => 'edit clients', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit users', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit products', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit billing', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit definitions', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit product categories', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit field groups', 'guard_name' => 'api']);
+        Permission::create(['name' => 'edit client products', 'guard_name' => 'api']);
 
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['name' => 'admin', 'guard_name' => 'api']);
         $role->syncPermissions(Permission::all()->pluck('name'));
 
-        $role = Role::create(['name' => 'manager']);
+        $role = Role::create(['name' => 'manager', 'guard_name' => 'api']);
         $role->syncPermissions(Permission::all()->pluck('name'));
 
-        Role::create(['name' => 'user']);
-        Role::create(['name' => 'restricted']);
-        Role::create(['name' => 'traffic coordinator']);
-        Role::create(['name' => 'seo']);
-        Role::create(['name' => 'adwords']);
-        Role::create(['name' => 'developer']);
-        Role::create(['name' => 'designer']);
+        Role::create(['name' => 'user', 'guard_name' => 'api']);
+        Role::create(['name' => 'restricted', 'guard_name' => 'api']);
+        Role::create(['name' => 'traffic coordinator', 'guard_name' => 'api']);
+        Role::create(['name' => 'seo', 'guard_name' => 'api']);
+        Role::create(['name' => 'adwords', 'guard_name' => 'api']);
+        Role::create(['name' => 'developer', 'guard_name' => 'api']);
+        Role::create(['name' => 'designer', 'guard_name' => 'api']);
     }
 
     /**

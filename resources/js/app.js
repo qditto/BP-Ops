@@ -61,6 +61,13 @@ Vue.use(VueI18Next);
 Vue.filter('capitalize', function (value) {
     if (!value) return ''
     value = value.toString()
+    value = value.split(' ')
+    if(Array.isArray(value)){
+        for (let s in value){
+            value[s] = value[s].charAt(0).toUpperCase() + value[s].slice(1)
+        }
+        return value.join(' ')
+    }
     return value.charAt(0).toUpperCase() + value.slice(1)
 })
 new Vue({

@@ -26,9 +26,20 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('/clients/{client}', 'API\ClientController@update');
     Route::get('/clients/{client}/products', 'API\ClientProductController@index');
     Route::put('/clients/{client}/products', 'API\ClientProductController@attachProduct');
-
     Route::get('/client-products/{clientProduct}', 'API\ClientProductController@edit');
     Route::patch('client-products/{clientProduct}', 'API\ClientProductController@updateCustomFields');
     Route::get('definitions/{definition}/edit', 'API\DefinitionController@edit');
     Route::patch('definitions/{definition}', 'API\DefinitionController@update');
+    Route::get('users', 'API\UserController@index');
+    Route::get('users/{user}', 'API\UserController@edit');
+    Route::patch('users/{user}', 'API\UserController@update');
+    Route::get('roles', 'API\RoleController@index');
+    Route::post('roles', 'API\RoleController@store');
+    Route::patch('roles/{role}', 'API\RoleController@update');
+    Route::delete('roles/{role}', 'API\RoleController@delete');
+
+    Route::get('permissions', 'API\PermissionController@index');
+    Route::post('permissions', 'API\PermissionController@store');
+    Route::patch('permissions/{permission}', 'API\PermissionController@update');
+    Route::delete('permissions/{permission}', 'API\PermissionController@delete');
 });

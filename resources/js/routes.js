@@ -20,6 +20,10 @@ import EditClientProductCFs from "./pages/EditClientProductCFs";
 import DefinitionForm from "./pages/DefinitionForm";
 import ClientView from "./pages/ClientView";
 import EditClientProducts from "./pages/EditClientProducts";
+import UsersIndex from "./pages/UsersIndex";
+import EditUser from "./pages/EditUser";
+import RolesIndex from "./pages/RolesIndex";
+import PermissionsIndex from "./pages/PermissionsIndex";
 /*
     Extends Vue to use Vue Router
 */
@@ -141,6 +145,22 @@ export default new VueRouter({
                 {
                     path: 'definitions/:slug',
                     component: DefinitionForm
+                },
+                {
+                    path: 'users',
+                    component: UsersIndex
+                },
+                {
+                    path: 'users/:slug',
+                    component: EditUser
+                },
+                {
+                    path: 'roles',
+                    component: RolesIndex
+                },
+                {
+                    path: 'permissions',
+                    component: PermissionsIndex
                 }]
         }
     ]

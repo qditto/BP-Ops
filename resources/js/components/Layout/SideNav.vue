@@ -14,7 +14,16 @@
                     <router-link tag="li" exact-active-class="active" :to="{path: '/clients'}">
                         <a :title="'View Clients'"><span>View Clients</span></a>
                     </router-link>
-                    <li class="nav-heading">Products</li>
+                    <li class="nav-heading">Users</li>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/users'}">
+                        <a :title="'View Users'"><span>View Users</span></a>
+                    </router-link>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/roles'}">
+                        <a :title="'View Roles'"><span>View Roles</span></a>
+                    </router-link>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/permissions'}">
+                        <a :title="'View Permissions'"><span>View Permissions</span></a>
+                    </router-link>
                 </ul>
             </nav>
         </div>
@@ -22,8 +31,15 @@
 </template>
 
 <script>
+    import store from '../../store'
+
     export default {
-        name: "SideNav"
+        name: "SideNav",
+        data(){
+            return{
+                can: store.getters.getUserCan
+            }
+        }
     }
 </script>
 
