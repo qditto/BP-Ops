@@ -21,5 +21,5 @@ Route::get( '/callback/google', 'Web\AuthenticationController@getSocialCallback'
     ->middleware('guest');
 Route::get('test/', function (){
    $user = \App\User::find(1);
-    return(new \App\Mail\NewUser($user))->render();
+    return(new \App\Mail\NewUserMailable($user))->render();
 });

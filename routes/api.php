@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('users', 'API\UserController@index');
     Route::get('users/{user}', 'API\UserController@edit');
     Route::patch('users/{user}', 'API\UserController@update');
+    Route::patch('users/{user}/markNotifs', 'API\UserController@markNotifs');
+
     Route::get('roles', 'API\RoleController@index');
     Route::post('roles', 'API\RoleController@store');
     Route::patch('roles/{role}', 'API\RoleController@update');

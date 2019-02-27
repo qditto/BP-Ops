@@ -3,28 +3,30 @@
 namespace App\Observers;
 
 use App\Jobs\ProcessEmails;
-use App\Mail\NewUser;
 use App\User;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\NewUser;
 class UserObserver
 {
     /**
      * Handle the user "created" event.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return void
      */
     public function created(User $user)
     {
-        $message = (new NewUser($user))->onQueue('emails')->onConnection('redis');
-        Mail::to('trevor@jumpsixmarketing.com')->queue($message);
+        $admins = User::whereHas('roles', function ($query) {
+            $query->where('name', '=', 'admin');
+        })->get();
+        \Notification::send($admins, new NewUser($user));
 
     }
 
     /**
      * Handle the user "updated" event.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return void
      */
     public function updated(User $user)
@@ -35,7 +37,7 @@ class UserObserver
     /**
      * Handle the user "deleted" event.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return void
      */
     public function deleted(User $user)
@@ -46,7 +48,7 @@ class UserObserver
     /**
      * Handle the user "restored" event.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return void
      */
     public function restored(User $user)
@@ -57,7 +59,7 @@ class UserObserver
     /**
      * Handle the user "force deleted" event.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return void
      */
     public function forceDeleted(User $user)

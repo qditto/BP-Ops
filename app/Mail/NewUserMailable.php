@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewUser extends Mailable
+class NewUserMailable extends Mailable
 {
     use Queueable, SerializesModels;
     public $user;
@@ -30,6 +30,6 @@ class NewUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.users.new');
+        return $this->markdown('emails.users.new_notif');
     }
 }

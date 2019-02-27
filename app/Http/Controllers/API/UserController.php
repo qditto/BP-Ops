@@ -18,6 +18,8 @@ class UserController extends Controller
         $permissions = $user->getPermissionsViaRoles()->pluck('name');
         $user->role = $role->first();
         $team = $user->team()->first();
+        $user->is_admin = $user->hasRole('admin');
+        $user->notifs = $user->unreadNotifications()->get();
         $user->team = '';
         if($team){
             $user->team = $team->name;
@@ -50,6 +52,12 @@ class UserController extends Controller
         unset($updateData['roles']);
         $user->update($updateData);
         $user->syncRoles($roles);
+        return response()->json('', 200);
+    }
+
+    public function markNotifs(User $user)
+    {
+        $user->unreadNotifications->markAsRead();
         return response()->json('', 200);
     }
 }

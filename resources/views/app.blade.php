@@ -10,7 +10,7 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-    <title>Jumpsix Marketings</title>
+    <title>Jumpsix Marketing</title>
 
     <script type='text/javascript'>
         window.Laravel = <?php echo json_encode([
