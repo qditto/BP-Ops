@@ -55,6 +55,16 @@ import 'weather-icons/css/weather-icons-wind.min.css';
 import BootstrapVue from 'bootstrap-vue'
 import VueI18Next from '@panter/vue-i18next';
 window.axios = require('axios');
+axios.interceptors.response.use(function (response) {
+    return response
+}, function (error) {
+
+    if (error.message.includes('401')) {
+        store.dispatch('logoutUser')
+        window.location.href = '/login'
+    }
+    return Promise.reject(error)
+})
 Vue.use(BootstrapVue);
 Vue.use(VueI18Next);
 Vue.filter('capitalize', function (value) {
