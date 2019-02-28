@@ -41,6 +41,7 @@
 
 <script>
     import Multiselect from 'vue-multiselect'
+    import swal from 'sweetalert2'
 
     export default {
         name: "DefinitionForm",
@@ -61,7 +62,7 @@
                     {value: 'json', text: 'Repeater'}
                 ],
                 field_group_form: new Form({
-                    name:''
+                    name: ''
                 }),
                 field_groups: [],
                 product_categories: []
@@ -92,15 +93,35 @@
                 let self = this
                 if (this.$route.params.slug) {
                     self.form.patch('api/definitions/' + self.$route.params.slug)
-                        .then()
-                        .catch()
+                        .then(function () {
+                            swal({
+                                title: 'Success!',
+                                type: 'success'
+                            })
+                        })
+                        .catch(function (res) {
+                            swal({
+                                title: 'Error!',
+                                tpye: 'error'
+                            });
+                        })
                 } else {
                     self.form.post('api/definitions')
-                        .then()
-                        .catch()
+                        .then(function () {
+                            swal({
+                                title: 'Success!',
+                                type: 'success'
+                            })
+                        })
+                        .catch(function (res) {
+                            swal({
+                                title: 'Error!',
+                                tpye: 'error'
+                            });
+                        })
                 }
             },
-            addFieldGroup(){
+            addFieldGroup() {
                 let self = this
                 this.field_group_form.post('/api/field-groups')
                     .then(function () {
