@@ -10,12 +10,13 @@
                     <template slot="step" slot-scope="props">
                         <!-- By using a custom header markup we can pass html in title attribute -->
                         <wizard-step
-                            :tab="props.tab"
-                            @click.native="props.navigateToTab(props.index)"
-                            @keyup.enter.native="props.navigateToTab(props.index)"
-                            :transition="props.transition"
-                            :index="props.index">
-                            <span slot="title" :class="{'text-danger':props.tab.validationError}" v-html="props.tab.title"></span>
+                                :tab="props.tab"
+                                @click.native="props.navigateToTab(props.index)"
+                                @keyup.enter.native="props.navigateToTab(props.index)"
+                                :transition="props.transition"
+                                :index="props.index">
+                            <span slot="title" :class="{'text-danger':props.tab.validationError}"
+                                  v-html="props.tab.title"></span>
                         </wizard-step>
                     </template>
                     <!-- Headers -->
@@ -63,11 +64,11 @@
                             <div class="form-group  row">
                                 <label>State</label>
                                 <multiselect
-                                    v-model="form.state"
-                                    :options="state_select"
-                                    :searchable="true"
-                                    :show-labels="false"
-                                    placeholder="Pick a State"/>
+                                        v-model="form.state"
+                                        :options="state_select"
+                                        :searchable="true"
+                                        :show-labels="false"
+                                        placeholder="Pick a State"/>
                             </div>
                             <div class="form-group  row">
                                 <label>Zip</label>
@@ -83,7 +84,8 @@
                             <div class="card">
                                 <div class="card-header">Business Hours</div>
                                 <div class="card-body">
-                                    <div class="form-group row" v-for="(business_hours, bh_index) in form.business_hours">
+                                    <div class="form-group row"
+                                         v-for="(business_hours, bh_index) in form.business_hours">
                                         <div class="col-4">
                                             <label>
                                                 Day
@@ -102,7 +104,8 @@
                                             <label>
                                                 Open
                                             </label>
-                                            <masked-input v-model="form.business_hours[bh_index].open" placeholder="HH:MM am/pm" class="form-control"
+                                            <masked-input v-model="form.business_hours[bh_index].open"
+                                                          placeholder="HH:MM am/pm" class="form-control"
                                                           :mask="timeMask"></masked-input>
                                         </div>
                                         <div class="col-4">
@@ -110,13 +113,17 @@
                                                 Close
                                             </label>
                                             <b-input-group>
-                                                <masked-input v-model="form.business_hours[bh_index].close" placeholder="HH:MM am/pm"
+                                                <masked-input v-model="form.business_hours[bh_index].close"
+                                                              placeholder="HH:MM am/pm"
                                                               class="form-control" :mask="timeMask"></masked-input>
                                                 <b-input-group-append>
-                                                    <b-btn variant="success" @click="repeater_add('business_hours', {day: '', open:'', close:''})"><i
-                                                        class="fas fa-plus" style="color:white"></i>
+                                                    <b-btn variant="success"
+                                                           @click="repeater_add('business_hours', {day: '', open:'', close:''})">
+                                                        <i
+                                                                class="fas fa-plus" style="color:white"></i>
                                                     </b-btn>
-                                                    <b-btn v-if="bh_index > 0" variant="danger" @click="repeater_remove('business_hours', bh_index)">
+                                                    <b-btn v-if="bh_index > 0" variant="danger"
+                                                           @click="repeater_remove('business_hours', bh_index)">
                                                         <i class="fas fa-trash" style="color:white"></i></b-btn>
                                                 </b-input-group-append>
                                             </b-input-group>
@@ -137,24 +144,32 @@
                                             <div class="form-row align-items-center">
                                                 <div v-for="(field, fieldIndex) in fields" class="col">
                                                     <label class="">{{field.label}}</label>
-                                                    <input v-model="field.value" class="form-control" type="text" v-if="field.type === 'string'"/>
-                                                    <input v-model="field.value" class="form-control" type="number" v-if="field.type === 'int'"/>
-                                                    <textarea v-model="field.value" class="form-control" v-if="field.type === 'text'"></textarea>
-                                                    <div v-if="field.type === 'json'" class="" v-for="(repeater_field, repeater_index) in field.value">
+                                                    <input v-model="field.value" class="form-control" type="text"
+                                                           v-if="field.type === 'string'"/>
+                                                    <input v-model="field.value" class="form-control" type="number"
+                                                           v-if="field.type === 'int'"/>
+                                                    <textarea v-model="field.value" class="form-control"
+                                                              v-if="field.type === 'text'"></textarea>
+                                                    <div v-if="field.type === 'json'" class=""
+                                                         v-for="(repeater_field, repeater_index) in field.value">
                                                         <b-input-group>
-                                                            <b-form-input v-model="field.value[repeater_index]"></b-form-input>
+                                                            <b-form-input
+                                                                    v-model="field.value[repeater_index]"></b-form-input>
                                                             <b-input-group-append>
-                                                                <b-btn variant="success" @click="field.value.push('')"><i class="fas fa-plus"
-                                                                                                                          style="color:white"></i>
+                                                                <b-btn variant="success" @click="field.value.push('')">
+                                                                    <i class="fas fa-plus"
+                                                                       style="color:white"></i>
                                                                 </b-btn>
                                                                 <b-btn v-if="repeater_index > 0" variant="danger"
                                                                        @click="field.value.splice(repeater_index, 1)">
-                                                                    <i class="fas fa-trash" style="color:white"></i></b-btn>
+                                                                    <i class="fas fa-trash" style="color:white"></i>
+                                                                </b-btn>
                                                             </b-input-group-append>
                                                         </b-input-group>
                                                     </div>
                                                     <b-input-group v-if="field.type === 'currency'" prepend="$">
-                                                        <b-form-input :type="'number'" v-model="field.value"></b-form-input>
+                                                        <b-form-input :type="'number'"
+                                                                      v-model="field.value"></b-form-input>
                                                     </b-input-group>
                                                 </div>
                                             </div>
@@ -229,10 +244,12 @@
                                     <b-input-group>
                                         <b-form-input v-model="form.keywords[keywordIndex]"></b-form-input>
                                         <b-input-group-append>
-                                            <b-btn @click="repeater_add('keywords', '')" variant="success"><i class="fas fa-plus" style="color:white"></i>
+                                            <b-btn @click="repeater_add('keywords', '')" variant="success"><i
+                                                    class="fas fa-plus" style="color:white"></i>
                                             </b-btn>
-                                            <b-btn v-if="keywordIndex > 0" variant="danger" @click="repeater_remove('keywords', keywordIndex)"><i
-                                                class="fas fa-trash" style="color:white"></i></b-btn>
+                                            <b-btn v-if="keywordIndex > 0" variant="danger"
+                                                   @click="repeater_remove('keywords', keywordIndex)"><i
+                                                    class="fas fa-trash" style="color:white"></i></b-btn>
                                         </b-input-group-append>
                                     </b-input-group>
                                 </div>
@@ -241,17 +258,22 @@
                                 <label>Competitors</label>
                                 <div class="row" v-for="(competitor, competitorIndex) in form.competitors">
                                     <div class="col-6">
-                                        <input class="form-control" placeholder="Name" v-model="form.competitors[competitorIndex].name">
+                                        <input class="form-control" placeholder="Name"
+                                               v-model="form.competitors[competitorIndex].name">
                                     </div>
                                     <div class="col-6">
                                         <b-input-group>
-                                            <b-form-input placeholder="URL" v-model="form.competitors[competitorIndex].url"></b-form-input>
+                                            <b-form-input placeholder="URL"
+                                                          v-model="form.competitors[competitorIndex].url"></b-form-input>
                                             <b-input-group-append>
-                                                <b-btn variant="success" @click="repeater_add('competitors', {name: '', url: ''})"><i class="fas fa-plus"
-                                                                                                                                      style="color:white"></i>
+                                                <b-btn variant="success"
+                                                       @click="repeater_add('competitors', {name: '', url: ''})"><i
+                                                        class="fas fa-plus"
+                                                        style="color:white"></i>
                                                 </b-btn>
-                                                <b-btn v-if="competitorIndex > 0" variant="danger" @click="repeater_remove('competitors', competitorIndex)"><i
-                                                    class="fas fa-trash" style="color:white"></i></b-btn>
+                                                <b-btn v-if="competitorIndex > 0" variant="danger"
+                                                       @click="repeater_remove('competitors', competitorIndex)"><i
+                                                        class="fas fa-trash" style="color:white"></i></b-btn>
                                             </b-input-group-append>
                                         </b-input-group>
                                     </div>
@@ -263,9 +285,11 @@
                                     <b-input-group>
                                         <b-form-input v-model="form.geo_targeting[geo_targetingIndex]"></b-form-input>
                                         <b-input-group-append>
-                                            <b-btn variant="success" @click="repeater_add('geo_targeting', '')"><i class="fas fa-plus" style="color:white"></i>
+                                            <b-btn variant="success" @click="repeater_add('geo_targeting', '')"><i
+                                                    class="fas fa-plus" style="color:white"></i>
                                             </b-btn>
-                                            <b-btn v-if="geo_targetingIndex > 0" variant="danger" @click="repeater_remove('geo_targeting', geo_targetingIndex)">
+                                            <b-btn v-if="geo_targetingIndex > 0" variant="danger"
+                                                   @click="repeater_remove('geo_targeting', geo_targetingIndex)">
                                                 <i class="fas fa-trash" style="color:white"></i></b-btn>
                                         </b-input-group-append>
                                     </b-input-group>
@@ -285,7 +309,8 @@
                             username: '',
                             password: '',
                             notes: ''})"></em>
-                                            <em v-if="login_index > 0" class="fas fa-trash text-danger" @click="repeater_remove('logins', login_index)"></em>
+                                            <em v-if="login_index > 0" class="fas fa-trash text-danger"
+                                                @click="repeater_remove('logins', login_index)"></em>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -319,7 +344,8 @@
                                         <div class="row">
                                             <div class="form-group col">
                                                 <label>Login Notes</label>
-                                                <textarea v-model="form.logins[login_index].notes" class="form-control"></textarea>
+                                                <textarea v-model="form.logins[login_index].notes"
+                                                          class="form-control"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -358,6 +384,7 @@
                     objectives: '',
                     email: '',
                     difference: '',
+                    team_id: 0,
                     keywords: [
                         ''
                     ],
@@ -441,6 +468,7 @@
             },
             onComplete: function () {
                 let cfs = []
+                let self = this
                 for (let field_group in this.custom_fields) {
                     for (let index in this.custom_fields[field_group]) {
                         console.log(this.custom_fields[field_group][index])
@@ -465,11 +493,19 @@
                 } else {
                     this.form.post('api/clients')
                         .then(function (res) {
-                            swal({
-                                title: 'Success!',
-                                type: 'success'
-                            })
-                        })
+                                swal({
+                                    title: 'Success!',
+                                    text: "Client has been added",
+                                    type: 'success',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Add Products'
+                                }).then((result) => {
+                                    if (result.value) {
+                                      self.$router.push('/clients/' + res + '/products')
+                                    }
+                                })
+                            }
+                        )
                         .catch(function (res) {
                             swal({
                                 title: 'Error!',
@@ -499,8 +535,8 @@
                                 }
                             }
                         }
-                        if(!self.form.logins[0]){
-                            self.form.logins[0] =   {
+                        if (!self.form.logins[0]) {
+                            self.form.logins[0] = {
                                 type: '',
                                 name: '',
                                 url: '',

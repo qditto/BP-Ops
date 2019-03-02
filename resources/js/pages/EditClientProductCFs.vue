@@ -14,10 +14,25 @@
                     <div class="card-body">
                         <div class="form-row align-items-center">
                             <div v-for="(field, fieldIndex) in fields" class="col">
-                                <label class="">{{field.label}}</label>
+                                <label class="">{{field.label | capitalize}}</label>
                                 <input v-model="field.value" class="form-control" type="text" v-if="field.type === 'string'"/>
                                 <input v-model="field.value" class="form-control" type="number" v-if="field.type === 'int'"/>
                                 <textarea v-model="field.value" class="form-control" v-if="field.type === 'text'"></textarea>
+                                <datepicker
+                                        v-if="field.type === 'date'"
+                                        v-model="field.value"
+                                        :bootstrapStyling="true"
+                                        :monday-first="true"
+                                        :full-month-name="true"
+                                        placeholder="Select date"
+                                        :calendar-button="true"
+                                        calendar-button-icon="far fa-calendar"
+                                        :clear-button="true"
+                                />
+                                <select v-model="field.value" class="form-control" v-if="field.type === 'bool'">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
                                 <div v-if="field.type === 'json'" class="" v-for="(repeater_field, repeater_index) in field.value">
                                     <b-input-group>
                                         <b-form-input v-model="field.value[repeater_index]"></b-form-input>
@@ -45,8 +60,11 @@
 
 <script>
     import swal from 'sweetalert2'
+    import moment from 'moment'
+    import Datepicker from 'vuejs-datepicker'
     export default {
         name: "EditClientProduct",
+        components: {Datepicker},
         data() {
             return {
                 field_groups: '',
@@ -63,7 +81,10 @@
                             if (res.data.fields[i][key].type === 'json' && !res.data.fields[i][key].value) {
                                 res.data.fields[i][key].value = [''];
                             }
-                        }
+                            if (res.data.fields[i][key].type === 'date' && !res.data.fields[i][key].value) {
+                                res.data.fields[i][key].value = moment().format('MMMM D YYYY')
+                            }
+                            }
                     }
                     self.field_groups = res.data.fields
                     self.client = res.data.client
@@ -81,7 +102,8 @@
                         })
                     })
                     .catch()
-            }
+            },
+
         }
     }
 </script>

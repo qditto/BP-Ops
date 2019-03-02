@@ -26,7 +26,7 @@
                 </form>
             </div>
         </div>
-        <b-modal hide-footer id="modal1" ref="modal" title="BootstrapVue">
+        <b-modal hide-footer id="modal1" ref="modal" title="Add Field Group">
             <form @submit.prevent="addFieldGroup()">
                 <div class="form-group">
                     <input v-model="field_group_form.name" class="form-control" placeholder="Name"/>
