@@ -62,7 +62,7 @@ class ClientController extends Controller
             $client->logins()->save($client_login);
         }
 
-        return response(null, 200);
+        return response($client->id, 200);
     }
 
     public function edit(Client $client)

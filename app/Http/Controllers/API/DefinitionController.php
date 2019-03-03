@@ -40,7 +40,7 @@ class DefinitionController extends Controller
     {
         $field_group = $request->input('field_group_id');
         $defData = [
-            'field_group_id' =>$field_group['id'],
+            'field_group_id' =>$field_group['id']? $field_group['id'] : 0,
             'name' => $request->input('name'),
             'field_type' => $request->input('field_type'),
             'type' => 'product_category'
@@ -93,7 +93,7 @@ class DefinitionController extends Controller
     {
         $field_group = $request->input('field_group_id');
         $defData = [
-            'field_group_id' =>$field_group['id'],
+            'field_group_id' => $field_group['id']? $field_group['id'] : 0,
             'name' => $request->input('name'),
             'field_type' => $request->input('field_type'),
             'type' => 'product_category'

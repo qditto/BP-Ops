@@ -49,6 +49,10 @@
                                 <span class="user-block-role">{{user_role | capitalize}}</span>
                             </div>
                         </div>
+
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="logout()">
+                        <div class="item bg-danger text-center">Log Out</div>
                     </b-dropdown-item>
                 </b-nav-item-dropdown>
                 <!-- START Alert menu-->
@@ -69,7 +73,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div @click="markAsRead"  v-if="notifs.length > 0" class="list-group-item list-group-item-action bg-primary align-items-center text-center">
+                            <div @click="markAsRead" v-if="notifs.length > 0"
+                                 class="list-group-item list-group-item-action bg-primary align-items-center text-center">
                                 <span class="text-center">
                                     Mark All As Read
                                 </span>
@@ -107,13 +112,17 @@
             ToggleFullscreen
         },
         methods: {
-            markAsRead(){
+            markAsRead() {
                 let id = this.$store.getters.getUser.id
                 let self = this
                 axios.patch('/api/users/' + id + '/markNotifs')
                     .then(function () {
                         self.notifs = []
                     })
+            },
+            logout(){
+                axios.get('/logout');
+                this.$store.dispatch('logoutUser')
             }
         },
         created() {

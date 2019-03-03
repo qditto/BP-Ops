@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('client-products/{clientProduct}', 'API\ClientProductController@updateCustomFields');
     Route::get('definitions/{definition}/edit', 'API\DefinitionController@edit');
     Route::get('definitions', 'API\DefinitionController@index');
+    Route::post('definitions', 'API\DefinitionController@store');
 
     Route::patch('definitions/{definition}', 'API\DefinitionController@update');
     Route::get('users', 'API\UserController@index');
@@ -49,4 +50,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('permissions/{permission}', 'API\PermissionController@update');
     Route::delete('permissions/{permission}', 'API\PermissionController@delete');
     Route::get('search', 'API\SearchController@search');
+
 });
