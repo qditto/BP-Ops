@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
 class Client extends Model
 {
     use Searchable;
+    use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $casts = ['keywords' => 'array', 'competitors' => 'array', 'geo_targeting' => 'array', 'business_hours' => 'array'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at', 'canceled_at'];
 
 
     public function user()
