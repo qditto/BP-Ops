@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\ClientLogin;
 use App\CustomField;
 use App\Definition;
+use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Client;
@@ -139,9 +140,20 @@ class ClientController extends Controller
         return response('', 200);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = Client::all(['id', 'name', 'current_url', 'email', 'phone', 'google_tag_manager_access']);
+        $user = \Auth::user();
+        $teamId = $user->team_id;
+        $data['teams'] = Team::all()->pluck('name', 'id');
+        if($request->has('teamId')){
+            $teamId = $request->get('teamId');
+        }
+        if($teamId == '0'){
+            $data['clients'] = Client::all(['id', 'name', 'current_url', 'email', 'phone', 'google_tag_manager_access']);
+
+        }else {
+            $data['clients'] = Client::where('team_id', $teamId)->select(['id', 'name', 'current_url', 'email', 'phone', 'google_tag_manager_access'])->get();
+        }
         return response()->json($data, 200);
     }
 

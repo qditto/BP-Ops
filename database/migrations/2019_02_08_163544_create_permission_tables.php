@@ -94,6 +94,8 @@ class CreatePermissionTables extends Migration
         Permission::create(['name' => 'view product categories', 'guard_name' => 'api']);
         Permission::create(['name' => 'view field groups', 'guard_name' => 'api']);
         Permission::create(['name' => 'view client products', 'guard_name' => 'api']);
+        Permission::create(['name' => 'view all clients', 'guard_name' => 'api']);
+
 
         Permission::create(['name' => 'edit clients', 'guard_name' => 'api']);
         Permission::create(['name' => 'edit users', 'guard_name' => 'api']);

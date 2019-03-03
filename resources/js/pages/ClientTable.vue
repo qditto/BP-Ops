@@ -7,6 +7,13 @@
         <div class="container-fluid">
             <div class="card card-default">
                 <div class="card-body">
+                    <div class="form-group">
+                        <select class="form-control" v-model="teamId" v-if="can.includes('view all clients')">
+                            <option selected disabled value="">Select Team</option>
+                            <option value="0">All</option>
+                            <option v-for="(team, i) in teams" :value="i">{{team}}</option>
+                        </select>
+                    </div>
                     <div class="justify-content-center spinner align-items-center row  ">
                         <div class="ball-grid-beat">
                             <div></div>
@@ -76,52 +83,74 @@
         components: {},
         data() {
             return {
-                dtOptions: {},
-                tableData: {}
+                dtOptions: {'paging': true, // Table pagination
+                    'info': true, // Bottom left status text
+                    responsive: true,
+                    "columns": [
+                        null,
+                        null,
+                        null,
+                        null,
+                        { "orderable": false },
+                        { "orderable": false },
+                    ],
+
+                    // Text translation options
+                    // Note the required keywords between underscores (e.g _MENU_)
+                    oLanguage: {
+                        sSearch: '<em class="fa fa-search"></em>',
+                        sLengthMenu: '_MENU_ records per page',
+                        info: 'Showing page _PAGE_ of _PAGES_',
+                        zeroRecords: 'Nothing found - sorry',
+                        infoEmpty: 'No records available',
+                        infoFiltered: '(filtered from _MAX_ total records)',
+                        oPaginate: {
+                            sNext: '<em class="fa fa-caret-right"></em>',
+                            sPrevious: '<em class="fa fa-caret-left"></em>'
+                        }
+                    },
+                    "initComplete": function (settings, json) {
+                        $('.spinner').fadeOut(function () {
+                            $('.table').fadeIn()
+
+                        })
+                    }},
+                teams: {},
+                teamId: '',
+                tableData: {},
+                can: this.$store.getters.getUserCan
+            }
+        },
+        watch:{
+            teamId:function () {
+                this.getClientsWithTeam()
             }
         },
         mounted() {
             let self = this;
             axios.get('api/clients')
                 .then(function (res) {
-                    self.tableData = res.data;
+                    self.tableData = res.data.clients;
+                    self.teams = res.data.teams
+                }).then(function () {
+                $('.table').DataTable(self.dtOptions)
+
+            })
+        },
+        methods:{
+            getClientsWithTeam(){
+                let self = this;
+                $('.table').DataTable().destroy();
+                axios.get('api/clients', {params: {teamId : self.teamId}})
+                    .then(function (res) {
+                        self.tableData = res.data.clients;
+                        self.teams = res.data.teams
+                    }).then(function () {
+                    $('.table').DataTable(self.dtOptions);
                 })
+            }
         },
         updated: function () {
-            $('.table').DataTable({
-                'paging': true, // Table pagination
-                'info': true, // Bottom left status text
-                responsive: true,
-                "columns": [
-                    null,
-                    null,
-                    null,
-                    null,
-                    { "orderable": false },
-                    { "orderable": false },
-                ],
-
-                // Text translation options
-                // Note the required keywords between underscores (e.g _MENU_)
-                oLanguage: {
-                    sSearch: '<em class="fa fa-search"></em>',
-                    sLengthMenu: '_MENU_ records per page',
-                    info: 'Showing page _PAGE_ of _PAGES_',
-                    zeroRecords: 'Nothing found - sorry',
-                    infoEmpty: 'No records available',
-                    infoFiltered: '(filtered from _MAX_ total records)',
-                    oPaginate: {
-                        sNext: '<em class="fa fa-caret-right"></em>',
-                        sPrevious: '<em class="fa fa-caret-left"></em>'
-                    }
-                },
-                "initComplete": function (settings, json) {
-                    $('.spinner').fadeOut(function () {
-                        $('.table').fadeIn()
-
-                    })
-                }
-            })
 
         }
     }
