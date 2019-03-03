@@ -37,9 +37,14 @@ class CreateClientsTable extends Migration
             $table->string('contact_email')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('contact_number_2')->nullable();
-
+            $table->tinyInteger('status')->unsigned()->default(\App\Enums\ClientStatus::Active);
+            $table->date('canceled_at')->nullable();
             $table->boolean('google_tag_manager_access')->default(0);
+
             $table->timestamps();
+        });
+        Schema::table('clients', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
