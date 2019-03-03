@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\ClientLogin;
 use App\CustomField;
 use App\Definition;
+use App\Enums\ClientStatus;
 use App\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -149,10 +150,13 @@ class ClientController extends Controller
             $teamId = $request->get('teamId');
         }
         if($teamId == '0'){
-            $data['clients'] = Client::all(['id', 'name', 'current_url', 'email', 'phone', 'google_tag_manager_access']);
+            $data['clients'] = Client::all(['id', 'name', 'current_url', 'email', 'phone', 'status']);
 
         }else {
-            $data['clients'] = Client::where('team_id', $teamId)->select(['id', 'name', 'current_url', 'email', 'phone', 'google_tag_manager_access'])->get();
+            $data['clients'] = Client::where('team_id', $teamId)->select(['id', 'name', 'current_url', 'email', 'phone', 'status'])->get();
+        }
+        foreach ($data['clients'] as $key => $client) {
+            $data['clients'][$key]->status = ClientStatus::getDescription($client->status);
         }
         return response()->json($data, 200);
     }

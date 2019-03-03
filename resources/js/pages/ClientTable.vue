@@ -34,7 +34,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Url</th>
-                            <th>GTM Access</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -43,8 +43,8 @@
                             <td>{{td.name}}</td>
                             <td>{{td.email}}</td>
                             <td>{{td.phone}}</td>
-                            <td>{{td.current_url}}</td>
-                            <td><span class="circle bg-success" v-if="td.google_tag_manager_access !== 0"></span><span class="circle bg-danger" v-else></span></td>
+                            <td>Website: <a :href="td.current_url" target="_blank"><em class="fas fa-external-link-square-alt"></em> </a> </td>
+                            <td>{{td.status}}</td>
                             <td>
                                 <router-link tag="button" :to="{path: 'clients/' + td.id}" :class="'btn mr-1 mb-1 btn-success'">View</router-link>
                             </td>
