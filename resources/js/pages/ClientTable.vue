@@ -35,6 +35,7 @@
                             <th>Phone</th>
                             <th>Url</th>
                             <th>Status</th>
+                            <th>Sales Person</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -45,6 +46,7 @@
                             <td>{{td.phone}}</td>
                             <td>Website: <a :href="td.current_url" target="_blank"><em class="fas fa-external-link-square-alt"></em> </a> </td>
                             <td>{{td.status}}</td>
+                            <td>{{td.user.name}}</td>
                             <td>
                                 <router-link tag="button" :to="{path: 'clients/' + td.id}" :class="'btn mr-1 mb-1 btn-success'">View</router-link>
                             </td>
@@ -91,7 +93,8 @@
                         null,
                         null,
                         null,
-                        { "orderable": false },
+                        null,
+                        null,
                         { "orderable": false },
                     ],
 

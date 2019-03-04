@@ -11,10 +11,14 @@ $factory->define(App\Client::class, function (Faker $faker) {
         array('name' => $faker->company, 'url' => $faker->url),
 
     );
+    $sales = \App\User::whereHas('roles', function ($query){
+        $query->where('name', 'sales');
+    })->get()->pluck('id');
 
     return [
         'name' => $faker->name,
         'team_id' => \App\Team::all()->random()->id,
+        'user_id' => $faker->randomElement($sales),
         'current_url' => $faker->url,
         'objectives' => $faker->paragraph,
         'email' => $faker->email,

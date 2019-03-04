@@ -15,7 +15,9 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('team_id');
+            $table->unsignedInteger('team_id')->default(0);
+            $table->unsignedInteger('user_id')->default(0);
+
             $table->string('name')->nullable();
             $table->string('current_url')->nullable();
             $table->text('objectives')->nullable();

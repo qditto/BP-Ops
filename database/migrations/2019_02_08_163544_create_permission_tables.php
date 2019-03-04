@@ -111,6 +111,7 @@ class CreatePermissionTables extends Migration
 
         $role = Role::create(['name' => 'manager', 'guard_name' => 'api']);
         $role->syncPermissions(Permission::all()->pluck('name'));
+        Role::create(['name' => 'sales', 'guard_name' => 'api']);
 
         Role::create(['name' => 'user', 'guard_name' => 'api']);
         Role::create(['name' => 'restricted', 'guard_name' => 'api']);

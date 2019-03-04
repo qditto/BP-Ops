@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         factory(App\Team::class, 4)->create();
         factory(App\User::class, 50)->create()->each(function ($user){
             $baseRoles = ['admin', 'manager', 'user', 'restricted'];
-            $jobRoles = ['traffic coordinator', 'designer', 'adwords', 'seo', 'developer'];
+            $jobRoles = ['traffic coordinator', 'designer', 'adwords', 'seo', 'developer', 'sales'];
             $user->assignRole(\Illuminate\Support\Arr::random($baseRoles));
             $user->assignRole(\Illuminate\Support\Arr::random($jobRoles));
 

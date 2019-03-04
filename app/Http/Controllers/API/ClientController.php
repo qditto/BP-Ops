@@ -157,6 +157,7 @@ class ClientController extends Controller
         }
         foreach ($data['clients'] as $key => $client) {
             $data['clients'][$key]->status = ClientStatus::getDescription($client->status);
+            $data['clients'][$key]->user = Client::find($client->id)->user()->first();
         }
         return response()->json($data, 200);
     }
