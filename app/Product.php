@@ -16,4 +16,13 @@ class Product extends Model
     {
         return $this->hasMany('App\ClientProduct');
     }
+    public function prices()
+    {
+        return $this->morphMany('App\Price', 'priceable');
+    }
+
+    public function addons()
+    {
+        return $this->hasMany('App\Addon');
+    }
 }

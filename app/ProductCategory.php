@@ -15,4 +15,9 @@ class ProductCategory extends Model
     {
         return $this->hasMany('App\Product');
     }
+
+    public function addons()
+    {
+        return $this->hasMany('App\Addons');
+    }
 }

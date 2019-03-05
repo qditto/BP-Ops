@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use League\Csv\Reader;
 
-class LoadProducts extends Migration
+class CreateTermsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +13,12 @@ class LoadProducts extends Migration
      */
     public function up()
     {
-
-
+        Schema::create('terms', function (Blueprint $table) {
+            $table->increments('id');
+            $table->tinyInteger('type')->unsigned()->default(1);
+            $table->tinyInteger('length')->unsigned();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,6 +28,6 @@ class LoadProducts extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('terms');
     }
 }
