@@ -20,3 +20,4 @@ Route::get('login/google', 'Web\AuthenticationController@getSocialRedirect')->mi
 Route::get( '/callback/google', 'Web\AuthenticationController@getSocialCallback' )
     ->middleware('guest');
 Route::get('logout', 'Web\AuthenticationController@logout');
+Route::get('test', 'API\ProductController@index');

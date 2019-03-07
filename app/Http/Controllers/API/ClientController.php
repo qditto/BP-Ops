@@ -73,6 +73,9 @@ class ClientController extends Controller
         $definitions = Definition::where('type', 'client')->with('field_group')->get();
         $logins = $client->logins()->get();
         $client->logins = $logins;
+        if(!$client->business_hours){
+            $client->business_hours = [];
+        }
         $custom_fields = [];
         foreach ($definitions as $definition) {
             $field_group = $definition->field_group;
