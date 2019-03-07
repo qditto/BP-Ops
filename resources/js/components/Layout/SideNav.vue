@@ -31,6 +31,13 @@
                     <router-link tag="li" exact-active-class="active" :to="{path: '/definitions/create'}">
                         <a :title="'New Definition'"><span>New Definition</span></a>
                     </router-link>
+                    <li class="nav-heading">Custom Fields</li>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/products'}">
+                        <a :title="'View Products'"><span>View Products</span></a>
+                    </router-link>
+                    <router-link tag="li" exact-active-class="active" :to="{path: '/products/create'}">
+                        <a :title="'New Product'"><span>New Product</span></a>
+                    </router-link>
                 </ul>
             </nav>
         </div>

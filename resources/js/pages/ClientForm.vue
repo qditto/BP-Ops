@@ -545,6 +545,13 @@
                                 notes: ''
                             }
                         }
+                        if(!self.form.business_hours[0]){
+                            self.form.business_hours[0] =     {
+                                day: '',
+                                open: '',
+                                close: ''
+                            }
+                        }
                     })
                     .catch(function (res) {
                         swal({

@@ -25,6 +25,8 @@ import EditUser from "./pages/EditUser";
 import RolesIndex from "./pages/RolesIndex";
 import PermissionsIndex from "./pages/PermissionsIndex";
 import DefinitionIndex from "./pages/DefinitionIndex";
+import ProductsIndex from "./pages/ProductsIndex";
+import ProductForm from "./pages/ProductForm";
 /*
     Extends Vue to use Vue Router
 */
@@ -163,6 +165,18 @@ export default new VueRouter({
                 {
                     path: 'permissions',
                     component: PermissionsIndex
+                },
+                {
+                    path: 'products',
+                    component: ProductsIndex
+                },
+                {
+                    path: 'products/:slug/edit',
+                    component: ProductForm
+                },
+                {
+                    path: 'products/create',
+                    component: ProductForm
                 }]
         }
     ]

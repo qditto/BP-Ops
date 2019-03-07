@@ -12,5 +12,8 @@ class Price extends Model
     {
         return $this->morphTo();
     }
+    public function term(){
+        return $this->belongsTo('App\Term');
+    }
 
 }

@@ -50,5 +50,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('permissions/{permission}', 'API\PermissionController@update');
     Route::delete('permissions/{permission}', 'API\PermissionController@delete');
     Route::get('search', 'API\SearchController@search');
-
+    Route::get('products', 'API\ProductController@index');
+    Route::post('products', 'API\ProductController@store');
+    Route::get('products/{product}', 'API\ProductController@edit');
+    Route::patch('products/{product}', 'API\ProductController@update');
 });

@@ -9,6 +9,6 @@ class Term extends Model
     protected $fillable = ['type', 'length'];
     public function prices()
     {
-        return $this->belongsToMany('App\Price');
+        return $this->hasMany('App\Price');
     }
 }
