@@ -6,7 +6,7 @@
         </div>
         <div class="card card-default">
             <div class="card-body">
-                <form-wizard @on-complete="onComplete">
+                <form-wizard @on-complete="onComplete" ref="form">
                     <template slot="step" slot-scope="props">
                         <!-- By using a custom header markup we can pass html in title attribute -->
                         <wizard-step
@@ -456,6 +456,7 @@
             } else {
                 this.getCustomFields()
             }
+            this.$refs.form.activateAll();
         },
         methods: {
             getCustomFields: function () {
