@@ -32,13 +32,9 @@ class CreateClientsTable extends Migration
             $table->json('business_hours')->nullable();
             $table->json('geo_targeting')->nullable();
             $table->json('competitors')->nullable();
-            $table->string('contact_method')->nullable();
+            $table->json('contacts')->nullable();
             $table->string('ga_ua_code')->nullable();
             $table->text('notes')->nullable();
-            $table->string('contact_name')->nullable();
-            $table->string('contact_email')->nullable();
-            $table->string('contact_number')->nullable();
-            $table->string('contact_number_2')->nullable();
             $table->tinyInteger('status')->unsigned()->default(\App\Enums\ClientStatus::Active);
             $table->date('canceled_at')->nullable();
             $table->boolean('google_tag_manager_access')->default(0);

@@ -102,7 +102,7 @@
                         .catch(function (res) {
                             swal({
                                 title: 'Error!',
-                                tpye: 'error'
+                                type: 'error'
                             });
                         })
                 } else {
@@ -116,7 +116,7 @@
                         .catch(function (res) {
                             swal({
                                 title: 'Error!',
-                                tpye: 'error'
+                                type: 'error'
                             });
                         })
                 }

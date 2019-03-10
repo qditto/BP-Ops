@@ -40,9 +40,8 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'contact_email' => 'required',
-            'contact_name' => 'required',
-            'contact_number' => 'required'
+            'contacts' => 'required'
+
         ]);
         $request = $request->toArray();
         $cfs = array_pull($request, 'custom_fields');
@@ -73,7 +72,7 @@ class ClientController extends Controller
         $definitions = Definition::where('type', 'client')->with('field_group')->get();
         $logins = $client->logins()->get();
         $client->logins = $logins;
-        if(!$client->business_hours){
+        if (!$client->business_hours) {
             $client->business_hours = [];
         }
         $custom_fields = [];
@@ -108,37 +107,39 @@ class ClientController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'contact_email' => 'required',
-            'contact_name' => 'required',
-            'contact_number' => 'required'
+            'contacts' => 'required'
         ]);
         $request = $request->toArray();
 
         $cfs = array_pull($request, 'custom_fields');
         $logins = array_pull($request, 'logins');
         $client->update($request);
-        foreach ($cfs as $cf) {
-            if ($cf['type'] == 'json') {
-                $cf['value'] = json_encode($cf['value']);
-            }
-            if ($cf['id']) {
-                $customField = CustomField::find($cf['id']);
-                $customField->update(['value' => $cf['value']]);
-            } else {
-                $customField = new CustomField();
-                $customField->definition_id = $cf['definition_id'];
-                $customField->value = $cf['value'];
-                $customField->save();
-                $customField->clients()->attach($client->id);
+        if ($cfs) {
+            foreach ($cfs as $cf) {
+                if ($cf['type'] == 'json') {
+                    $cf['value'] = json_encode($cf['value']);
+                }
+                if ($cf['id']) {
+                    $customField = CustomField::find($cf['id']);
+                    $customField->update(['value' => $cf['value']]);
+                } else {
+                    $customField = new CustomField();
+                    $customField->definition_id = $cf['definition_id'];
+                    $customField->value = $cf['value'];
+                    $customField->save();
+                    $customField->clients()->attach($client->id);
+                }
             }
         }
-        foreach ($logins as $login) {
-            if (!empty($login['id'])) {
-                $client_login = ClientLogin::find($login['id']);
-                $client_login->update(array_except($login, ['id', 'client_id', 'created_at', 'updated_at']));
-            } else {
-                $client_login = ClientLogin::create($login);
-                $client->logins()->save($client_login);
+        if ($logins) {
+            foreach ($logins as $login) {
+                if (!empty($login['id'])) {
+                    $client_login = ClientLogin::find($login['id']);
+                    $client_login->update(array_except($login, ['id', 'client_id', 'created_at', 'updated_at']));
+                } else {
+                    $client_login = ClientLogin::create($login);
+                    $client->logins()->save($client_login);
+                }
             }
         }
         return response('', 200);
@@ -149,13 +150,13 @@ class ClientController extends Controller
         $user = \Auth::user();
         $teamId = $user->team_id;
         $data['teams'] = Team::all()->pluck('name', 'id');
-        if($request->has('teamId')){
+        if ($request->has('teamId')) {
             $teamId = $request->get('teamId');
         }
-        if($teamId == '0'){
+        if ($teamId == '0') {
             $data['clients'] = Client::all(['id', 'name', 'current_url', 'email', 'phone', 'status']);
 
-        }else {
+        } else {
             $data['clients'] = Client::where('team_id', $teamId)->select(['id', 'name', 'current_url', 'email', 'phone', 'status'])->get();
         }
         foreach ($data['clients'] as $key => $client) {

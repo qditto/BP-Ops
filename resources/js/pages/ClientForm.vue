@@ -177,44 +177,57 @@
                         </div>
                     </tab-content>
                     <tab-content title="<div>Contact Info</div>">
-                        <b-card class="mb-3 border">
+                        <div class="card card-default" v-for="(contact, contactIndex) in form.contacts">
+                            <div class="card-header bg-dark text-white">
+                                <span v-if="contactIndex === 0">Primary Contact</span>
+                                <span v-else>Secondary Contact {{contactIndex}}</span>
+                                <div class="card-tool float-right">
+                                    <em class="fas fa-plus text-success" @click="repeater_add('contacts',{
+                        contact_number: '',
+                        contact_number_2: '',
+                        contact_name: '',
+                        contact_email: '',
+                        custom_fields: '',
+                        contact_method: '',
+                    })"></em>
+                                    <em v-if="contactIndex > 0" class="fas fa-trash text-danger"
+                                        @click="repeater_remove('contacts', contactIndex)"></em>
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="contact_name">Contact Name</label>
+                                    <input type="text" name="contact_name" id="contact_name"
+                                           v-model="contact.contact_name"
+                                           class="form-control">
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact_email">Contact Email</label>
+                                    <input type="email" name="contact_email" id="contact_email"
+                                           v-model="contact.contact_email"
+                                           class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Number</label>
+                                    <masked-input :mask="phoneMask" v-model="contact.contact_number"
+                                                  class="form-control"></masked-input>
 
 
-                            <div class="form-group">
-                                <label for="contact_name">Contact Name</label>
-                                <input type="text" name="contact_name" id="contact_name" v-model="form.contact_name"
-                                       class="form-control">
-                                <span v-if="form.errors.has('contact_name')"
-                                      class="form-control-feedback ">Contact Name is required.</span>
-
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Number 2</label>
+                                    <masked-input :mask="phoneMask" v-model="contact.contact_number_2"
+                                                  class="form-control"></masked-input>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preferred Contact Method</label>
+                                    <input type="text" name="contact_method" v-model="contact.contact_method"
+                                           class="form-control">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="contact_email">Contact Email</label>
-                                <input type="email" name="contact_email" id="contact_email" v-model="form.contact_email"
-                                       class="form-control">
-                                <span v-if="form.errors.has('contact_email')"
-                                      class="form-control-feedback">Contact Email is required.</span>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Contact Number</label>
-                                <masked-input :mask="phoneMask" v-model="form.contact_number"
-                                              class="form-control"></masked-input>
-                                <span v-if="form.errors.has('contact_number')"
-                                      class="form-control-feedback">Contact Number is required.</span>
-
-                            </div>
-                            <div class="form-group">
-                                <label>Contact Number 2</label>
-                                <masked-input :mask="phoneMask" v-model="form.contact_number_2"
-                                              class="form-control"></masked-input>
-                            </div>
-                            <div class="form-group">
-                                <label>Preferred Contact Method</label>
-                                <input type="text" name="contact_method" v-model="form.contact_method"
-                                       class="form-control">
-                            </div>
-                        </b-card>
+                        </div>
                     </tab-content>
                     <tab-content title="<div>Basic Marketing</div>">
                         <b-card class="mb-3 border">
@@ -374,14 +387,14 @@
         name: "ClientForm",
         data() {
             return {
-                days : [
-                    {text: "Monday", value : 1},
-                    {text: "Tuesday", value : 2},
-                    {text: "Wednesday", value : 3},
-                    {text: "Thursday", value : 4},
-                    {text: "Friday", value : 5},
-                    {text: "Saturday", value : 6},
-                    {text: "Sunday", value : 7}
+                days: [
+                    {text: "Monday", value: 1},
+                    {text: "Tuesday", value: 2},
+                    {text: "Wednesday", value: 3},
+                    {text: "Thursday", value: 4},
+                    {text: "Friday", value: 5},
+                    {text: "Saturday", value: 6},
+                    {text: "Sunday", value: 7}
 
                 ],
                 form: new Form({
@@ -423,14 +436,16 @@
                             notes: ''
                         }
                     ],
-                    contact_method: '',
                     ga_ua_code: '',
                     notes: '',
-                    contact_number: '',
-                    contact_number_2: '',
-                    contact_name: '',
-                    contact_email: '',
-                    custom_fields: ''
+                    contacts: [{
+                        contact_number: '',
+                        contact_number_2: '',
+                        contact_name: '',
+                        contact_email: '',
+                        custom_fields: '',
+                        contact_method: '',
+                    }]
                 }),
                 config: {
                     format: 'LT',
@@ -492,9 +507,14 @@
                             })
                         })
                         .catch(function (res) {
+                            let errors = ""
+                            for (let i in res.errors.name){
+                                errors = errors + "<p>" + res.errors.name[i] + "</p>"
+                            }
                             swal({
                                 title: 'Error!',
-                                tpye: 'error'
+                                type: 'error',
+                                html: errors
                             });
                         })
                 } else {
@@ -508,7 +528,7 @@
                                     confirmButtonText: 'Add Products'
                                 }).then((result) => {
                                     if (result.value) {
-                                      self.$router.push('/clients/' + res + '/products')
+                                        self.$router.push('/clients/' + res + '/products')
                                     }
                                 })
                             }
@@ -552,8 +572,8 @@
                                 notes: ''
                             }
                         }
-                        if(!self.form.business_hours[0]){
-                            self.form.business_hours[0] =     {
+                        if (!self.form.business_hours[0]) {
+                            self.form.business_hours[0] = {
                                 days: [],
                                 open: '',
                                 close: ''

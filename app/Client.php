@@ -11,7 +11,7 @@ class Client extends Model
     use Searchable;
     use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    protected $casts = ['keywords' => 'array', 'competitors' => 'array', 'geo_targeting' => 'array', 'business_hours' => 'array'];
+    protected $casts = ['keywords' => 'array', 'competitors' => 'array', 'geo_targeting' => 'array', 'business_hours' => 'array', 'contacts'=> 'array'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at', 'canceled_at'];
 
 

@@ -11,6 +11,11 @@ $factory->define(App\Client::class, function (Faker $faker) {
         array('name' => $faker->company, 'url' => $faker->url),
 
     );
+    $contacts = [ [   'contact_name' => $faker->name,
+        'contact_email' => $faker->email,
+        'contact_number' => $faker->phoneNumber,
+        'contact_number_2' => $faker->phoneNumber,
+        'contact_method' => $faker->word]];
     $sales = \App\User::whereHas('roles', function ($query){
         $query->where('name', 'sales');
     })->get()->pluck('id');
@@ -31,13 +36,9 @@ $factory->define(App\Client::class, function (Faker $faker) {
         'phone' => $faker->phoneNumber,
         'geo_targeting' => $faker->words(),
         'competitors' => $comp,
-        'contact_method' => $faker->word,
         'ga_ua_code' => $faker->word,
         'notes' => $faker->paragraph,
-        'contact_name' => $faker->name,
-        'contact_email' => $faker->email,
-        'contact_number' => $faker->phoneNumber,
-        'contact_number_2' => $faker->phoneNumber,
+        'contacts' => $contacts,
         'google_tag_manager_access' => $faker->boolean
     ];
 });
