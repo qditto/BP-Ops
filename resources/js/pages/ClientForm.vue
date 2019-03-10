@@ -84,21 +84,17 @@
                             <div class="card">
                                 <div class="card-header">Business Hours</div>
                                 <div class="card-body">
+
                                     <div class="form-group row"
                                          v-for="(business_hours, bh_index) in form.business_hours">
                                         <div class="col-4">
-                                            <label>
-                                                Day
-                                            </label>
-                                            <select v-model="form.business_hours[bh_index].day" class="form-control">
-                                                <option value="1">Monday</option>
-                                                <option value="2">Tuesday</option>
-                                                <option value="3">Wednesday</option>
-                                                <option value="4">Thursday</option>
-                                                <option value="5">Friday</option>
-                                                <option value="6">Saturday</option>
-                                                <option value="7">Sunday</option>
-                                            </select>
+                                            <b-form-group label="Days">
+                                                <b-form-checkbox-group
+                                                        name="days"
+                                                        v-model="form.business_hours[bh_index].days"
+                                                        :options="days"
+                                                />
+                                            </b-form-group>
                                         </div>
                                         <div class="col-4">
                                             <label>
@@ -118,7 +114,7 @@
                                                               class="form-control" :mask="timeMask"></masked-input>
                                                 <b-input-group-append>
                                                     <b-btn variant="success"
-                                                           @click="repeater_add('business_hours', {day: '', open:'', close:''})">
+                                                           @click="repeater_add('business_hours', {days: [], open:'', close:''})">
                                                         <i
                                                                 class="fas fa-plus" style="color:white"></i>
                                                     </b-btn>
@@ -378,6 +374,16 @@
         name: "ClientForm",
         data() {
             return {
+                days : [
+                    {text: "Monday", value : 1},
+                    {text: "Tuesday", value : 2},
+                    {text: "Wednesday", value : 3},
+                    {text: "Thursday", value : 4},
+                    {text: "Friday", value : 5},
+                    {text: "Saturday", value : 6},
+                    {text: "Sunday", value : 7}
+
+                ],
                 form: new Form({
                     name: '',
                     current_url: '',
@@ -395,7 +401,7 @@
                     phone: '',
                     business_hours: [
                         {
-                            day: '',
+                            days: [],
                             open: '',
                             close: ''
                         }
@@ -548,7 +554,7 @@
                         }
                         if(!self.form.business_hours[0]){
                             self.form.business_hours[0] =     {
-                                day: '',
+                                days: [],
                                 open: '',
                                 close: ''
                             }
