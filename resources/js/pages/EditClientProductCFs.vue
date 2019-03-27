@@ -12,8 +12,8 @@
                 <div class="card card-default">
                     <div v-if="field_group !== 'default'" class="card-header">{{field_group}}</div>
                     <div class="card-body">
-                        <div class="form-row align-items-center">
-                            <div v-for="(field, fieldIndex) in fields" class="col">
+                        <div class="align-items-center">
+                            <div v-for="(field, fieldIndex) in fields" class="form-group">
                                 <label class="">{{field.label | capitalize}}</label>
                                 <input v-model="field.value" class="form-control" type="text" v-if="field.type === 'string'"/>
                                 <input v-model="field.value" class="form-control" type="number" v-if="field.type === 'int'"/>

@@ -21,4 +21,9 @@ class Definition extends Model
     {
         return $this->belongsTo('App\FieldGroup');
     }
+
+    public function custom_fields()
+    {
+        $this->hasMany('App\CustomField');
+    }
 }

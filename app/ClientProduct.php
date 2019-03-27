@@ -45,15 +45,15 @@ class ClientProduct extends Model
             }
 
 
-        $arr = [
-            'type' => $definition->field_type,
-            'def_id' => $definition->id,
-            'label' => $definition->name,
-            'id' => $custom_field ? $custom_field->id : '',
-            'value' => $custom_field ? $custom_field->value : ''
-        ];
-        $formattedData[$field_group ? $field_group->name : 'default'][] = $arr;
+            $arr = [
+                'type' => $definition->field_type,
+                'def_id' => $definition->id,
+                'label' => $definition->name,
+                'id' => $custom_field ? $custom_field->id : '',
+                'value' => $custom_field ? $custom_field->value : ''
+            ];
+            $formattedData[$field_group ? $field_group->name : 'default'][] = $arr;
+        }
+        return $formattedData;
     }
-return $formattedData;
-}
 }

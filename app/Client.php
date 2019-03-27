@@ -11,7 +11,7 @@ class Client extends Model
     use Searchable;
     use SoftDeletes;
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    protected $casts = ['keywords' => 'array', 'competitors' => 'array', 'geo_targeting' => 'array', 'business_hours' => 'array', 'contacts'=> 'array'];
+    protected $casts = ['keywords' => 'array', 'competitors' => 'array', 'geo_targeting' => 'array', 'business_hours' => 'array', 'contacts' => 'array'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at', 'canceled_at'];
 
 
@@ -39,6 +39,21 @@ class Client extends Model
     public function team()
     {
         return $this->belongsTo('App\Team');
+    }
+
+    public function getCustomFieldByName($name)
+    {
+        $clinet = $this->with('client_products.custom_fields')->where('id', $this->id)->get();
+        $cfs = $clinet->pluck('client_products.*.custom_fields');
+        $definition = Definition::where('name', $name)->first();
+        if(!$definition){
+            return false;
+        }
+        $cf = $cfs->flatten()->where('definition_id', $definition->id);
+        if (!$cf) {
+            return false;
+        }
+        return $cf->first()->value;
     }
 
 

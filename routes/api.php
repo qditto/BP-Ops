@@ -54,4 +54,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('products', 'API\ProductController@store');
     Route::get('products/{product}', 'API\ProductController@edit');
     Route::patch('products/{product}', 'API\ProductController@update');
+
+    Route::get('teams', 'API\TeamController@index');
+    Route::post('teams', 'API\TeamController@store');
+    Route::get('teams/{team}', 'API\TeamController@edit');
+    Route::patch('teams/{team}', 'API\TeamController@update');
+
+
 });

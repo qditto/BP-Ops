@@ -27,6 +27,8 @@ import PermissionsIndex from "./pages/PermissionsIndex";
 import DefinitionIndex from "./pages/DefinitionIndex";
 import ProductsIndex from "./pages/ProductsIndex";
 import ProductForm from "./pages/ProductForm";
+import TeamIndex from "./pages/TeamIndex";
+import TeamForm from "./pages/TeamForm";
 /*
     Extends Vue to use Vue Router
 */
@@ -177,6 +179,17 @@ export default new VueRouter({
                 {
                     path: 'products/create',
                     component: ProductForm
+                }, {
+                    path: 'teams',
+                    component: TeamIndex
+                },
+                {
+                    path: "teams/create",
+                    component: TeamForm
+                },
+                {
+                    path: "teams/:slug/edit",
+                    component: TeamForm
                 }]
         }
     ]

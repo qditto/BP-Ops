@@ -59,6 +59,9 @@ class ClientController extends Controller
             $customField->clients()->attach($client->id);
         }
         foreach ($logins as $login) {
+            if(!array_filter($login)){
+                continue;
+            }
             $client_login = ClientLogin::create($login);
             $client->logins()->save($client_login);
         }
@@ -133,6 +136,9 @@ class ClientController extends Controller
         }
         if ($logins) {
             foreach ($logins as $login) {
+                if(!array_filter($login)){
+                    continue;
+                }
                 if (!empty($login['id'])) {
                     $client_login = ClientLogin::find($login['id']);
                     $client_login->update(array_except($login, ['id', 'client_id', 'created_at', 'updated_at']));
@@ -169,6 +175,7 @@ class ClientController extends Controller
     public function view(Client $client)
     {
         $client = $client->where('id', $client->id)->with(['logins', 'client_products.product.product_category'])->first();
+        $client->gmb = $client->getCustomFieldByName('Google My Business Access');
         return response()->json($client, 200);
     }
 }

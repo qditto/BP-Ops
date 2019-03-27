@@ -179,8 +179,7 @@
                     <tab-content title="<div>Contact Info</div>">
                         <div class="card card-default" v-for="(contact, contactIndex) in form.contacts">
                             <div class="card-header bg-dark text-white">
-                                <span v-if="contactIndex === 0">Primary Contact</span>
-                                <span v-else>Secondary Contact {{contactIndex}}</span>
+                                <span> Contact</span>>
                                 <div class="card-tool float-right">
                                     <em class="fas fa-plus text-success" @click="repeater_add('contacts',{
                         contact_number: '',
@@ -189,13 +188,20 @@
                         contact_email: '',
                         custom_fields: '',
                         contact_method: '',
+                        contact_type: ''
                     })"></em>
                                     <em v-if="contactIndex > 0" class="fas fa-trash text-danger"
                                         @click="repeater_remove('contacts', contactIndex)"></em>
                                 </div>
                             </div>
                             <div class="card-body">
+                                <b-form-group label="Type">
+                                    <select class="form-control" v-model="contact.contact_type">
+                                        <option value="primary">Primary</option>
+                                        <option value="secondary">Secondary</option>
 
+                                    </select>
+                                </b-form-group>
                                 <div class="form-group">
                                     <label for="contact_name">Contact Name</label>
                                     <input type="text" name="contact_name" id="contact_name"
@@ -307,6 +313,16 @@
                         </b-card>
                     </tab-content>
                     <tab-content title="<div>Additional Data</div>">
+                        <div class="card card-default">
+                            <div class="card-body">
+                            <div class="form-group">
+                                <label>Team</label>
+                                <select class="form-control" v-model="form.team_id">
+                                    <option v-for="(team, i) in teams" :value="team.value">{{team.text}}</option>
+                                </select>
+                            </div>
+                            </div>
+                        </div>
                         <b-card class="mb-3 border primary">
                             <div class="card">
                                 <div v-for="(login, login_index) in form.logins">
@@ -399,6 +415,7 @@
                 ],
                 form: new Form({
                     name: '',
+                    team_id: '',
                     current_url: '',
                     objectives: '',
                     email: '',
@@ -445,6 +462,7 @@
                         contact_email: '',
                         custom_fields: '',
                         contact_method: '',
+                        contact_type: '',
                     }]
                 }),
                 config: {
@@ -458,7 +476,7 @@
                 zipMask: [/\d/, /\d/, /\d/, /\d/, /\d/],
                 custom_fields: {},
                 timeMask: [/\d/, /\d/, ':', /\d/, /\d/, ' ', /[a-zA-Z]/, /[a-zA-Z]/],
-
+                teams: [],
                 state_select: ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY']
             }
 
@@ -472,12 +490,24 @@
             Multiselect
         },
         mounted() {
+            let self = this
             if (this.$route.params.slug) {
                 this.getClientData()
             } else {
                 this.getCustomFields()
             }
             this.$refs.form.activateAll();
+            axios.get('api/teams')
+                .then(function (res) {
+                    axios.get('api/teams')
+                        .then(function (res) {
+                            let teams = []
+                            for (let i in res.data) {
+                                teams.push({text: res.data[i].name, value: res.data[i].id})
+                            }
+                            self.teams = teams
+                        })
+                })
         },
         methods: {
             getCustomFields: function () {
